@@ -48,7 +48,7 @@ module Delayed
           ready_scope = ready_scope.where('priority >= ?', Worker.min_priority) if Worker.min_priority
           ready_scope = ready_scope.where('priority <= ?', Worker.max_priority) if Worker.max_priority
 
-          Worker.queues << 'appypublisher' unless Worker.queues.include?('appypublisher')
+          Worker.queues << DELAYED_DEFAULT_QUEUE unless Worker.queues.include?(DELAYED_DEFAULT_QUEUE)
 
           p "Worker queues : #{Worker.queues}"
           Rails.logger.info "Worker queues : #{Worker.queues}"
