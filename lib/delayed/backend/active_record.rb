@@ -52,7 +52,7 @@ module Delayed
           Rails.logger.info "Worker queues : #{Worker.queues}"
           p "Any queue : #{Worker.queues.any?}"
           Rails.logger.info "Any queue : #{Worker.queues.any?}"
-          ready_scope = ready_scope.where(:queue => "appypublisher")
+          ready_scope = ready_scope.where(:queue => Worker.queues)
           p "Ready scope : #{ready_scope.inspect}"
           Rails.logger.info "Ready scope : #{ready_scope.inspect}"
           ready_scope = ready_scope.by_priority
