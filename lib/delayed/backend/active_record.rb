@@ -47,7 +47,13 @@ module Delayed
           # scope to filter to the single next eligible job
           ready_scope = ready_scope.where('priority >= ?', Worker.min_priority) if Worker.min_priority
           ready_scope = ready_scope.where('priority <= ?', Worker.max_priority) if Worker.max_priority
+          p "Worker queues : #{Worker.queues}"
+          Rails.logger.info "Worker queues : #{Worker.queues}"
+          p "Any queue : #{Worker.queues.any?}"
+          Rails.logger.info "Any queue : #{Worker.queues.any?}"
           ready_scope = ready_scope.where(:queue => Worker.queues) if Worker.queues.any?
+          p "Ready scope : #{ready_scope}"
+          Rails.logger.info "Ready scope : #{ready_scope}"
           ready_scope = ready_scope.by_priority
 
           now = self.db_time_now
